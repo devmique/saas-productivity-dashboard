@@ -1,25 +1,22 @@
-import { createClient } from '@supabase/supabase-js'
-import { redirect } from 'next/navigation'
-
-export default async function DashboardPage() {
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  )
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession()
-
-  if (!session) {
-    redirect('/login')
+export default function DashboardPage() {
+    return (
+      <div className="space-y-6">
+        <h1 className="text-2xl font-bold">
+          Welcome back 👋
+        </h1>
+  
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-white p-4 rounded-lg shadow">
+            Projects
+          </div>
+          <div className="bg-white p-4 rounded-lg shadow">
+            Tasks
+          </div>
+          <div className="bg-white p-4 rounded-lg shadow">
+            Activity
+          </div>
+        </div>
+      </div>
+    )
   }
-
-  return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold">
-        Dashboard
-      </h1>
-    </div>
-  )
-}
+  
