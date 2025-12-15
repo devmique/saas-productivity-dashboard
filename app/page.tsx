@@ -3,6 +3,6 @@ import DashboardPage from "./dashboard/page";
 export default function Home() {
   return (
 
-   <div></div>
+   <div><DashboardPage/></div>
   );
 }
