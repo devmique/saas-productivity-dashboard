@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
+import { logActivity } from '@/lib/activity'
 
 export async function createTask(
   projectId: string,
@@ -31,7 +32,13 @@ export async function updateTaskStatus(
     .from('tasks')
     .update({ status })
     .eq('id', taskId)
-
+  
+  
+await logActivity({
+  action: `updated task status to ${status}`,
+  entityType: 'task',
+  entityId: taskId,
+})
   revalidatePath('/dashboard')
 }
 

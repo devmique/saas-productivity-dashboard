@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
+import { logActivity } from '@/lib/activity'
 
 async function getWorkspaceId(supabase: any) {
   const { data } = await supabase
@@ -24,7 +25,11 @@ export async function createProject(formData: FormData) {
     name,
     workspace_id: workspaceId,
   })
-
+  await logActivity({
+  action: 'created project',
+  entityType: 'project',
+  metadata: { name },
+})
   revalidatePath('/dashboard/projects')
 }
 
